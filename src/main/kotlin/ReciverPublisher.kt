@@ -1,4 +1,4 @@
 interface ReceiverPublisher {
     fun receive(event: Event)
-    fun publish()
+    fun publish(event: Event)
 }

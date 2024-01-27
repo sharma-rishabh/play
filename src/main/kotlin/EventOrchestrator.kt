@@ -1,5 +1,5 @@
-class EvenOrchestrator {
-    private val eventMap: MutableMap<String, MutableList<ReceiverPublisher>> = mutableMapOf()
+class EventOrchestrator {
+    private val eventMap: MutableMap<String, MutableList<ReceiverPublisher>> = mutableMapOf("toAll" to mutableListOf())
 
     private fun isEventRegistered(eventName: String):Boolean {
         return eventMap.containsKey(eventName)
@@ -20,8 +20,22 @@ class EvenOrchestrator {
             println("NO SUCH EVENT REGISTERED ${event.name}")
             return
         }
+
+        if(event.message != "") {
+            println("${event.from.uppercase()}: ${event.message}")
+        }
+
         eventMap[event.name]!!.map {
             it.receive(event)
         }
+    }
+
+    fun unsubscribe(eventName: String, listener: ReceiverPublisher) {
+        if(!isEventRegistered(eventName)) {
+            println("NO SUCH EVENT REGISTERED ${eventName}")
+            return
+        }
+
+        eventMap[eventName]!!.remove(listener)
     }
 }
