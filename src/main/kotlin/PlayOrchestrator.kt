@@ -13,7 +13,7 @@ class PlayOrchestrator(private val actors: MutableList<Actor>, private val event
     fun start() {
         publish(Event(toAll, name, "**PLAY STARTS**"))
         val firstActorName = actors[0].name
-        publish(Event("to$firstActorName", name, ""))
+        publish(Event("to$firstActorName", name, "", EventType.ENTERING_EVENT))
     }
 
     override fun receive(event: Event) {

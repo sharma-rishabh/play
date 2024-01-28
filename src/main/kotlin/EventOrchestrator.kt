@@ -21,7 +21,7 @@ class EventOrchestrator {
             return
         }
 
-        if(event.message != "") {
+        if(event.type == EventType.BASIC) {
             println("${event.from.uppercase()}: ${event.message}")
         }
 
